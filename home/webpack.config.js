@@ -50,6 +50,8 @@ module.exports = {
       },
       exposes: {
         "./MainLayout": "./src/MainLayout.jsx",
+        "./axios":"./src/helper/axiosInstance.jsx",
+        "./api":"./src/helper/apiHelper.jsx"
       },
       shared: {
         ...deps,

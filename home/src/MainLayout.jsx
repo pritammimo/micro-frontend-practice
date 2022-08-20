@@ -6,31 +6,73 @@ import Register from "login/Register";
 import Product from "pdp/Product";
 import Products from './Pages/Products';
 const { Header, Content, Footer } = Layout;
+import { QueryClient, QueryClientProvider } from "react-query";
+import { getStorage } from './helper/apiHelper';
+import { tokenvalue } from 'login/localStorage';
+// import { useNavigate} from "react-router-dom";
+const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnmount: false,
+        refetchOnReconnect: false,
+        retry: false,
+        staleTime: 5*60*1000,
+      },
+    },
+  });
 const MainLayout = () => {
-
+  // const navigate=useNavigate();
+  const token=tokenvalue();
+  console.log("token",token);
 const item=[
     {
         "key": 1,
-        "label": "Login"
+        "label": "Login",
+        "path":"/"
     },
     {
         "key": 2,
-        "label": "Register"
+        "label": "Register",
+        "path":"/register"
     },
   
 ]
+const item2=[
+  {
+      "key": 1,
+      "label": "Products",
+      "path":"/register"
+  },
+  {
+      "key": 2,
+      "label": "Logout",
+      "path":"/"
+  },
+
+]
   console.log("itm",item);
   return (
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
      <Layout className="layout">
     <Header>
       <div className="logo" />
+      {token ===null ?
       <Menu
+      theme="dark"
+      mode="horizontal"
+      defaultSelectedKeys={['1']}
+      items={item}
+    />:
+    <Menu
         theme="dark"
         mode="horizontal"
         defaultSelectedKeys={['1']}
-        items={item}
+        items={item2}
       />
+      }
+      
     </Header>
     <Content
       style={{
@@ -53,6 +95,7 @@ const item=[
     </Footer>
   </Layout>
     </BrowserRouter>
+    </QueryClientProvider>
   )
 }
 

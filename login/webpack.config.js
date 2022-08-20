@@ -51,6 +51,7 @@ module.exports = {
       exposes: {
         "./Login": "./src/Pages/Login.jsx",
         "./Register": "./src/Pages/Register.jsx",
+        "./localStorage":"./src/helper/localStorage.jsx"
       },
       shared: {
         ...deps,
